@@ -460,6 +460,7 @@ function PlayerPage() {
               hls.loadSource(finalUrl);
               hls.attachMedia(video);
               art.hls = hls;
+              // @ts-ignore
               art.on("destroy", () => hls.destroy());
             } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
               const proxyUrl = localStorage.getItem("m3u8ProxySelected");
