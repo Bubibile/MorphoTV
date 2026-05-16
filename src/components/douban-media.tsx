@@ -177,11 +177,24 @@ export function DoubanMedia() {
               onClick={() => handleMediaClick(movie.title)}
             >
               <div className="relative w-full h-40 md:h-48">
-                <img
-                  src={movie.cover}
-                  alt={movie.title}
-                  className="absolute inset-0 w-full h-full object-cover"
-                  referrerPolicy="no-referrer"
+                <iframe
+                  srcDoc={`
+                    <!DOCTYPE html>
+                    <html>
+                      <head>
+                        <meta name="referrer" content="no-referrer">
+                        <style>
+                          body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; }
+                          img { width: 100%; height: 100%; object-fit: cover; }
+                        </style>
+                      </head>
+                      <body>
+                        <img src="${movie.cover}" alt="poster">
+                      </body>
+                    </html>
+                  `}
+                  className="absolute inset-0 w-full h-full border-0 overflow-hidden"
+                  scrolling="no"
                 />
                 {movie.rate && (
                   <div className="absolute top-2 right-2 z-10">
