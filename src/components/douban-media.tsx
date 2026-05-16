@@ -178,7 +178,7 @@ export function DoubanMedia() {
             >
               <div className="relative w-full h-40 md:h-48">
                 <img
-                  src={window.PROXY_BASE_URL/{encodeURIComponent(movie.cover)}}
+                  src={window.PROXY_BASE_URL/encodeURIComponent(movie.cover)}
                   alt={movie.title}
                   className="absolute inset-0 w-full h-full object-cover"
                   referrerPolicy="no-referrer"
