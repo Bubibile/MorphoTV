@@ -17,6 +17,20 @@ export default function MainLayout() {
   const [showSettings, setShowSettings] = useState(false);
   const [showInitDialog, setShowInitDialog] = useState(false);
 
+  // ================= 🎯 【新增】全站图片防盗链强力洗白外挂 =================
+  useEffect(() => {
+    // 检测是否已存在该标签，防止重复注入
+    let meta = document.querySelector('meta[name="referrer"]');
+    if (!meta) {
+      meta = document.createElement("meta");
+      meta.setAttribute("name", "referrer");
+      meta.setAttribute("content", "no-referrer");
+      document.head.appendChild(meta);
+      console.log("防盗链洗白标签已成功注入网页总源头！");
+    }
+  }, []);
+  // =====================================================================
+
   // 注入访问统计代码
   useEffect(() => {
     const analyticsScript = localStorage.getItem("ANALYTICS_SCRIPT");
@@ -112,19 +126,7 @@ export default function MainLayout() {
                 </Button>
               </nav>
 
-
-              {/* 分隔线 */}
-           
-
-              {/* 主题切换按钮 */}
-              {/* {mounted && (
-                <Button variant="ghost" size="icon" onClick={() => setTheme(theme === "dark" ? "light" : "dark")} className="hover:bg-muted/80 transition-colors">
-                  {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-                </Button>
-              )} */}
-
               {/* 设置按钮（移动端） */}
-             
               <Button variant="ghost" size="icon" className="md:hidden hover:bg-muted/80" onClick={() => navigate('/history')}>
                 <History className="w-4 h-4" />
               </Button>
@@ -194,7 +196,6 @@ export default function MainLayout() {
         </Button>
       )}
 
-      {/* <PlayHistorySidebar open={showHistory} onOpenChange={setShowHistory} /> */}
       <SettingsDialog open={showSettings} onOpenChange={setShowSettings} />
       <InitDialog open={showInitDialog} onOpenChange={setShowInitDialog} />
       <Toaster />
